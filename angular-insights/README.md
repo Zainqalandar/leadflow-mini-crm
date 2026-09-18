@@ -1,6 +1,8 @@
-# AngularInsights
+# Angular Lead Insights
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.37.
+LeadFlow's analytics workspace for pipeline health, lead quality, service demand, and top opportunities. It authenticates against the LeadFlow API and reads the existing insights and leads endpoints.
+
+The app uses `http://localhost:5000/api` when opened on localhost and the deployed API at `https://leadflow-mini-crm.onrender.com/api` when hosted elsewhere. Update `resolveApiUrl()` in `src/app/leadflow-api.service.ts` if the API domain changes.
 
 ## Development server
 
