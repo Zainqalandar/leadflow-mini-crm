@@ -11,6 +11,8 @@ Node.js, Express, TypeScript, and MongoDB API for the LeadFlow Mini CRM.
 
 The API runs on `http://localhost:5000` by default. Use `GET /health` to confirm that it is running.
 
+Run the live smoke test against a running API and MongoDB with `npm run smoke`. It creates temporary test leads and removes them after the checks.
+
 ## Authentication
 
 `POST /api/auth/login`
