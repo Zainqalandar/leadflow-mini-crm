@@ -29,6 +29,11 @@ export async function getLeadStats(): Promise<LeadStats> {
   return response.data;
 }
 
+export async function getLead(id: string): Promise<Lead> {
+  const response = await api.get<{ lead: Lead }>(`/leads/${id}`);
+  return response.data.lead;
+}
+
 export async function getLeadInsights(): Promise<LeadInsights> {
   const response = await api.get<LeadInsights>("/leads/insights");
   return response.data;
