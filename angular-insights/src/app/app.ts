@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { LEAD_STATUSES, Lead, LeadStatus, LeadflowApiService } from './leadflow-api.service';
@@ -14,6 +14,7 @@ interface ServiceSummary { name: string; count: number; percentage: number; }
 })
 export class App implements OnInit {
   private readonly api = inject(LeadflowApiService);
+  private readonly changeDetector = inject(ChangeDetectorRef);
   readonly statuses = LEAD_STATUSES;
   readonly statusColors: Record<LeadStatus, string> = { New: '#efb64e', Contacted: '#5aa8f5', Qualified: '#a98bf4', Won: '#53c49a', Lost: '#eb7f88' };
 
@@ -40,8 +41,8 @@ export class App implements OnInit {
     if (!this.email.trim() || !this.password) return;
     this.loggingIn = true; this.loginError = '';
     this.api.login(this.email.trim(), this.password).subscribe({
-      next: (result) => { this.api.setToken(result.token); this.api.setAdminEmail(result.admin.email); this.adminEmail = result.admin.email; this.loggedIn = true; this.password = ''; this.loggingIn = false; this.loadDashboard(); },
-      error: (error: Error) => { this.loginError = error.message; this.loggingIn = false; },
+      next: (result) => { this.api.setToken(result.token); this.api.setAdminEmail(result.admin.email); this.adminEmail = result.admin.email; this.loggedIn = true; this.password = ''; this.loggingIn = false; this.changeDetector.markForCheck(); this.loadDashboard(); },
+      error: (error: Error) => { this.loginError = error.message; this.loggingIn = false; this.changeDetector.markForCheck(); },
     });
   }
 
@@ -58,10 +59,10 @@ export class App implements OnInit {
   initials(name: string): string { return name.split(' ').slice(0, 2).map((part) => part[0]).join('').toUpperCase(); }
 
   private loadDashboard(): void {
-    this.loading = true; this.dashboardError = '';
+    this.loading = true; this.dashboardError = ''; this.changeDetector.markForCheck();
     forkJoin({ insights: this.api.getInsights(), leads: this.api.getLeads() }).subscribe({
-      next: ({ insights, leads }) => { this.insights = { ...insights, topLeads: insights.topLeads as Lead[] }; this.leads = leads.leads; this.serviceMix = this.buildServiceMix(leads.leads); this.lastUpdated = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' }).format(new Date()); this.loading = false; },
-      error: (error: Error) => { this.dashboardError = error.message; this.loading = false; if (!this.api.getToken()) this.loggedIn = false; },
+      next: ({ insights, leads }) => { this.insights = { ...insights, topLeads: insights.topLeads as Lead[] }; this.leads = leads.leads; this.serviceMix = this.buildServiceMix(leads.leads); this.lastUpdated = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' }).format(new Date()); this.loading = false; this.changeDetector.markForCheck(); },
+      error: (error: Error) => { this.dashboardError = error.message; this.loading = false; if (!this.api.getToken()) this.loggedIn = false; this.changeDetector.markForCheck(); },
     });
   }
 
