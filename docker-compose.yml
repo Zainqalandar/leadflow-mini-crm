@@ -1,0 +1,38 @@
+services:
+  wordpress-db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: leadflow_wp
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress_dev_password
+      MARIADB_ROOT_PASSWORD: root_dev_password
+    volumes:
+      - wordpress_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  wordpress:
+    image: wordpress:latest
+    restart: unless-stopped
+    depends_on:
+      wordpress-db:
+        condition: service_healthy
+    ports:
+      - "${WORDPRESS_PORT:-8080}:80"
+    environment:
+      WORDPRESS_DB_HOST: wordpress-db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress_dev_password
+      WORDPRESS_DB_NAME: leadflow_wp
+      WORDPRESS_DEBUG: 1
+    volumes:
+      - wordpress_core_data:/var/www/html
+      - ./wordpress-plugin:/var/www/html/wp-content/plugins/leadflow-connector
+
+volumes:
+  wordpress_db_data:
+  wordpress_core_data:
