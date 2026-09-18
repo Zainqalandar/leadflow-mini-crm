@@ -1,0 +1,73 @@
+.leadflow-form-shell {
+  --leadflow-ink: #17273b;
+  --leadflow-muted: #6e8193;
+  --leadflow-mint: #2fc1a7;
+  --leadflow-deep: #113c45;
+  --leadflow-line: #dfe9ec;
+  --leadflow-surface: #f7fbfb;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(28px, 5vw, 76px);
+  max-width: 1120px;
+  margin: 32px auto;
+  padding: clamp(27px, 5vw, 68px);
+  overflow: hidden;
+  border: 1px solid #dce9e8;
+  border-radius: 24px;
+  background: linear-gradient(122deg, #eaf8f5 0%, #f9fcfc 48%, #edf8f7 100%);
+  box-shadow: 0 24px 70px rgba(19, 57, 65, 0.1);
+}
+
+.leadflow-form-shell *,
+.leadflow-form-shell *::before,
+.leadflow-form-shell *::after { box-sizing: border-box; }
+
+.leadflow-form-intro { position: relative; align-self: center; z-index: 1; }
+.leadflow-form-intro::before,
+.leadflow-form-intro::after { position: absolute; z-index: -1; content: ""; border-radius: 50%; pointer-events: none; }
+.leadflow-form-intro::before { width: 240px; height: 240px; top: -92px; left: -133px; border: 1px solid rgba(39, 170, 149, 0.18); box-shadow: 0 0 0 35px rgba(75, 200, 178, 0.07), 0 0 0 75px rgba(75, 200, 178, 0.035); }
+.leadflow-form-intro::after { width: 82px; height: 82px; bottom: -68px; right: 16px; background: rgba(42, 197, 168, 0.13); }
+.leadflow-kicker { display: inline-block; margin-bottom: 16px; color: #15967f; font-size: 11px; font-weight: 800; letter-spacing: 0.16em; }
+.leadflow-form-intro h2 { max-width: 400px; margin: 0; color: var(--leadflow-ink); font-family: inherit; font-size: clamp(31px, 4vw, 48px); font-weight: 750; line-height: 1.08; letter-spacing: -0.045em; }
+.leadflow-form-intro p { max-width: 385px; margin: 21px 0 0; color: var(--leadflow-muted); font-size: 15px; line-height: 1.75; }
+.leadflow-trust-row { display: flex; align-items: center; gap: 10px; margin-top: 31px; color: #2d5960; font-size: 13px; font-weight: 650; }
+.leadflow-trust-check { display: grid; width: 26px; height: 26px; place-items: center; border-radius: 8px; background: #c8f2e7; color: #177d6c; font-size: 14px; }
+
+.leadflow-form-card { position: relative; padding: clamp(22px, 3.5vw, 36px); border: 1px solid #e2ebed; border-radius: 17px; background: #fff; box-shadow: 0 15px 42px rgba(23, 55, 61, 0.09); }
+.leadflow-form { margin: 0; }
+.leadflow-field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 17px; }
+.leadflow-field { min-width: 0; }
+.leadflow-field--full { grid-column: 1 / -1; }
+.leadflow-field label { display: block; margin: 0 0 8px; color: #3d5665; font-family: inherit; font-size: 12px; font-weight: 720; }
+.leadflow-field label span { margin-left: 3px; color: #e07272; }
+.leadflow-field input,
+.leadflow-field select,
+.leadflow-field textarea { display: block; width: 100%; margin: 0; border: 1px solid var(--leadflow-line); border-radius: 9px; outline: 0; background: #fff; color: var(--leadflow-ink); font-family: inherit; font-size: 13px; line-height: 1.4; box-shadow: none; transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease; }
+.leadflow-field input,
+.leadflow-field select { height: 46px; padding: 0 13px; }
+.leadflow-field textarea { min-height: 120px; padding: 12px 13px; resize: vertical; }
+.leadflow-field select { appearance: auto; cursor: pointer; }
+.leadflow-field input::placeholder,
+.leadflow-field textarea::placeholder { color: #a8b7c0; opacity: 1; }
+.leadflow-field input:focus,
+.leadflow-field select:focus,
+.leadflow-field textarea:focus { border-color: var(--leadflow-mint); background: #fcfffe; box-shadow: 0 0 0 4px rgba(47, 193, 167, 0.14); }
+.leadflow-field.is-invalid input,
+.leadflow-field.is-invalid select,
+.leadflow-field.is-invalid textarea { border-color: #df8181; box-shadow: 0 0 0 4px rgba(223, 129, 129, 0.11); }
+.leadflow-field-error { min-height: 16px; margin: 6px 0 0; color: #ca5c5c; font-size: 11px; line-height: 1.4; }
+.leadflow-field-footer { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.leadflow-field-footer .leadflow-field-error { flex: 1; }
+.leadflow-character-count { padding-top: 6px; color: #98a9b3; font-size: 10px; white-space: nowrap; }
+.leadflow-form-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 24px; padding-top: 21px; border-top: 1px solid #edf1f2; }
+.leadflow-form-footer p { max-width: 210px; margin: 0; color: #8798a3; font-size: 10px; line-height: 1.55; }
+.leadflow-submit-button { display: inline-flex; align-items: center; justify-content: center; gap: 16px; min-height: 45px; padding: 0 17px; border: 0; border-radius: 9px; background: #1ca98e; color: #fff; font-family: inherit; font-size: 12px; font-weight: 760; line-height: 1; cursor: pointer; box-shadow: 0 9px 20px rgba(28, 169, 142, 0.25); transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease; }
+.leadflow-submit-button:hover { background: #118e77; transform: translateY(-1px); box-shadow: 0 12px 25px rgba(28, 169, 142, 0.3); }
+.leadflow-submit-button:focus-visible { outline: 3px solid #79e5ce; outline-offset: 3px; }
+.leadflow-submit-button:disabled { cursor: wait; opacity: 0.72; transform: none; }
+.leadflow-public-notice { display: flex; gap: 10px; align-items: flex-start; margin: 0 0 20px; padding: 13px 14px; border: 1px solid; border-radius: 10px; font-size: 12px; line-height: 1.55; }
+.leadflow-public-notice p { margin: 0; }.leadflow-public-notice>span { display: grid; width: 20px; height: 20px; flex: 0 0 20px; place-items: center; border-radius: 50%; font-weight: 800; }.leadflow-public-notice--success { border-color: #bce8d9; background: #effbf6; color: #277563; }.leadflow-public-notice--success>span { background: #caefdf; }.leadflow-public-notice--error { border-color: #f0caca; background: #fff5f5; color: #a55757; }.leadflow-public-notice--error>span { background: #f8d8d8; }
+
+@media (max-width: 760px) { .leadflow-form-shell { grid-template-columns: 1fr; gap: 31px; margin: 20px 0; padding: 28px 20px; border-radius: 16px; }.leadflow-form-intro h2 { max-width: 350px; font-size: 34px; }.leadflow-form-intro p { margin-top: 15px; font-size: 14px; }.leadflow-trust-row { margin-top: 20px; }.leadflow-form-intro::after { display: none; }.leadflow-form-card { padding: 20px; }.leadflow-field-grid { grid-template-columns: 1fr; gap: 16px; }.leadflow-field--full { grid-column: auto; } }
+@media (max-width: 440px) { .leadflow-form-shell { padding: 23px 15px; }.leadflow-form-card { padding: 18px 15px; }.leadflow-form-footer { align-items: stretch; flex-direction: column; gap: 14px; }.leadflow-form-footer p { max-width: none; }.leadflow-submit-button { width: 100%; min-height: 48px; }.leadflow-field-footer { gap: 8px; } }
