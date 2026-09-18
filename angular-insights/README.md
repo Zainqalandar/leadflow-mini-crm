@@ -4,6 +4,10 @@ LeadFlow's analytics workspace for pipeline health, lead quality, service demand
 
 The app uses `http://localhost:5000/api` when opened on localhost and the deployed API at `https://leadflow-mini-crm.onrender.com/api` when hosted elsewhere. Update `resolveApiUrl()` in `src/app/leadflow-api.service.ts` if the API domain changes.
 
+## Vercel deployment
+
+This repository includes Vercel configuration for both monorepo-root and `angular-insights` Root Directory deployments. The Angular output directory is `dist/angular-insights/browser`, and the SPA rewrite keeps the app working on direct routes.
+
 ## Development server
 
 To start a local development server, run:

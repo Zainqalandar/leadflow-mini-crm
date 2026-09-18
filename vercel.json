@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm --prefix angular-insights install",
+  "buildCommand": "npm --prefix angular-insights run build",
+  "outputDirectory": "angular-insights/dist/angular-insights/browser",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
