@@ -1,3 +1,87 @@
+.leadflow-has-form .wp-site-blocks > header.wp-block-template-part {
+  display: none !important;
+}
+
+.leadflow-site-nav {
+  --leadflow-nav-bg: #111113;
+  --leadflow-nav-surface: #29292b;
+  --leadflow-nav-line: #2d2d31;
+  --leadflow-nav-text: #f3f1ed;
+  --leadflow-nav-muted: #8a8991;
+  --leadflow-nav-accent: #d3aa3b;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  border-bottom: 1px solid var(--leadflow-nav-line);
+  background: rgba(17, 17, 19, 0.98);
+  color: var(--leadflow-nav-text);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  font-family: inherit;
+  backdrop-filter: blur(16px);
+}
+
+.leadflow-site-nav *,
+.leadflow-site-nav *::before,
+.leadflow-site-nav *::after { box-sizing: border-box; }
+
+.leadflow-site-nav__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(22px, 4vw, 58px);
+  width: min(1240px, calc(100% - 48px));
+  min-height: 76px;
+  margin: 0 auto;
+}
+
+.leadflow-site-nav a { text-decoration: none !important; }
+.leadflow-site-nav svg { display: block; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.leadflow-site-nav__brand { display: inline-flex; align-items: center; gap: 12px; min-width: 218px; color: var(--leadflow-nav-text); }
+.leadflow-site-nav__mark { display: grid; width: 43px; height: 43px; flex: 0 0 43px; place-items: center; border: 1px solid rgba(211, 170, 59, 0.72); border-radius: 50%; background: radial-gradient(circle at 32% 28%, #244f47 0%, #173b36 58%, #102c29 100%); color: #e1ba4c; box-shadow: 0 0 0 4px rgba(211, 170, 59, 0.08), inset 0 0 18px rgba(211, 170, 59, 0.08); }
+.leadflow-site-nav__mark svg { width: 29px; height: 29px; fill: currentColor; stroke: none; }
+.leadflow-site-nav__brand-copy { display: grid; gap: 3px; }
+.leadflow-site-nav__brand-copy strong { color: var(--leadflow-nav-text); font-family: Georgia, 'Times New Roman', serif; font-size: 16px; font-weight: 500; line-height: 1.05; white-space: nowrap; }
+.leadflow-site-nav__brand-copy small { color: var(--leadflow-nav-accent); font-size: 8px; font-weight: 700; line-height: 1; letter-spacing: 0.18em; white-space: nowrap; }
+
+.leadflow-site-nav__links { display: flex; align-items: center; justify-content: center; gap: 4px; }
+.leadflow-site-nav__links a { display: inline-flex; align-items: center; gap: 7px; min-height: 39px; padding: 0 12px; border: 1px solid transparent; border-radius: 999px; color: var(--leadflow-nav-muted); font-size: 13px; font-weight: 600; line-height: 1; white-space: nowrap; transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease; }
+.leadflow-site-nav__links a:hover { color: var(--leadflow-nav-text); border-color: var(--leadflow-nav-line); background: rgba(255, 255, 255, 0.035); }
+.leadflow-site-nav__links a.is-active { border-color: #333337; background: var(--leadflow-nav-surface); color: var(--leadflow-nav-text); box-shadow: inset 0 1px rgba(255, 255, 255, 0.04); }
+.leadflow-site-nav__links a > svg { width: 16px; height: 16px; }
+.leadflow-site-nav__links .leadflow-site-nav__chevron { width: 12px; height: 12px; margin-left: 1px; }
+
+.leadflow-site-nav__actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+.leadflow-site-nav__cta,
+.leadflow-site-nav__signin { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 39px; padding: 0 14px; border: 1px solid var(--leadflow-nav-line); border-radius: 999px; font-size: 13px; font-weight: 650; line-height: 1; white-space: nowrap; transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease, transform 0.18s ease; }
+.leadflow-site-nav__cta { background: var(--leadflow-nav-surface); color: var(--leadflow-nav-text); }
+.leadflow-site-nav__cta:hover { border-color: rgba(211, 170, 59, 0.5); background: #333333; transform: translateY(-1px); }
+.leadflow-site-nav__signin { background: transparent; color: var(--leadflow-nav-muted); }
+.leadflow-site-nav__signin:hover { color: var(--leadflow-nav-text); border-color: #444448; }
+.leadflow-site-nav__cta svg,
+.leadflow-site-nav__signin svg { width: 16px; height: 16px; }
+
+.leadflow-site-nav__icon-button,
+.leadflow-site-nav__menu-button { display: inline-flex; width: 39px; height: 39px; align-items: center; justify-content: center; margin: 0; padding: 0; border: 1px solid var(--leadflow-nav-line); border-radius: 50%; outline: 0; background: transparent; color: var(--leadflow-nav-muted); cursor: pointer; box-shadow: none; transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease; }
+.leadflow-site-nav__icon-button:hover,
+.leadflow-site-nav__menu-button:hover { border-color: #45454a; background: rgba(255, 255, 255, 0.04); color: var(--leadflow-nav-text); }
+.leadflow-site-nav__icon-button svg { width: 17px; height: 17px; }
+.leadflow-site-nav__menu-button { display: none; flex-direction: column; gap: 4px; }
+.leadflow-site-nav__menu-button span { width: 16px; height: 1.5px; border-radius: 2px; background: currentColor; transition: transform 0.18s ease, opacity 0.18s ease; }
+.leadflow-site-nav__menu-button[aria-expanded='true'] span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+.leadflow-site-nav__menu-button[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+.leadflow-site-nav__menu-button[aria-expanded='true'] span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+.leadflow-site-nav a:focus-visible,
+.leadflow-site-nav button:focus-visible { outline: 2px solid var(--leadflow-nav-accent); outline-offset: 3px; }
+
+.leadflow-site-nav.is-light { --leadflow-nav-bg: #fff; --leadflow-nav-surface: #f1f0ed; --leadflow-nav-line: #deddd8; --leadflow-nav-text: #19191b; --leadflow-nav-muted: #737279; background: rgba(255, 255, 255, 0.97); box-shadow: 0 10px 30px rgba(30, 28, 22, 0.08); }
+.leadflow-site-nav.is-light .leadflow-site-nav__links a.is-active { border-color: #deddd8; }
+body.admin-bar .leadflow-site-nav { top: 32px; }
+
+.leadflow-form-shell { scroll-margin-top: 100px; }
+
 .leadflow-form-shell {
   --leadflow-ink: #17273b;
   --leadflow-muted: #6e8193;
@@ -10,9 +94,12 @@
   grid-template-columns: minmax(220px, 0.78fr) minmax(0, 1.22fr);
   gap: clamp(28px, 5vw, 76px);
   max-width: 1120px;
+  width: 100%;
   margin: 32px auto;
   padding: clamp(27px, 5vw, 68px);
   overflow: hidden;
+  container-name: leadflow-form;
+  container-type: inline-size;
   border: 1px solid #dce9e8;
   border-radius: 24px;
   background: linear-gradient(122deg, #eaf8f5 0%, #f9fcfc 48%, #edf8f7 100%);
@@ -68,6 +155,46 @@
 .leadflow-submit-button:disabled { cursor: wait; opacity: 0.72; transform: none; }
 .leadflow-public-notice { display: flex; gap: 10px; align-items: flex-start; margin: 0 0 20px; padding: 13px 14px; border: 1px solid; border-radius: 10px; font-size: 12px; line-height: 1.55; }
 .leadflow-public-notice p { margin: 0; }.leadflow-public-notice>span { display: grid; width: 20px; height: 20px; flex: 0 0 20px; place-items: center; border-radius: 50%; font-weight: 800; }.leadflow-public-notice--success { border-color: #bce8d9; background: #effbf6; color: #277563; }.leadflow-public-notice--success>span { background: #caefdf; }.leadflow-public-notice--error { border-color: #f0caca; background: #fff5f5; color: #a55757; }.leadflow-public-notice--error>span { background: #f8d8d8; }
+
+@media (max-width: 1080px) {
+  .leadflow-site-nav__inner { width: min(100% - 32px, 1240px); gap: 18px; }
+  .leadflow-site-nav__links { position: absolute; top: calc(100% + 1px); right: 0; left: 0; display: grid; align-items: stretch; justify-content: stretch; gap: 4px; padding: 12px; border: 1px solid var(--leadflow-nav-line); border-top: 0; border-radius: 0 0 16px 16px; background: var(--leadflow-nav-bg); box-shadow: 0 18px 38px rgba(0, 0, 0, 0.18); opacity: 0; visibility: hidden; transform: translateY(-8px); pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease; }
+  .leadflow-site-nav__links a { justify-content: flex-start; border-radius: 10px; }
+  .leadflow-site-nav.is-open .leadflow-site-nav__links { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
+  .leadflow-site-nav__menu-button { display: inline-flex; }
+}
+
+@media (max-width: 720px) {
+  .leadflow-site-nav__inner { grid-template-columns: minmax(0, 1fr) auto; min-height: 70px; }
+  .leadflow-site-nav__signin { display: none; }
+  body.admin-bar .leadflow-site-nav { top: 46px; }
+}
+
+@media (max-width: 520px) {
+  .leadflow-site-nav__inner { width: min(100% - 24px, 1240px); }
+  .leadflow-site-nav__brand { min-width: 0; }
+  .leadflow-site-nav__brand-copy small,
+  .leadflow-site-nav__cta span,
+  .leadflow-site-nav__icon-button { display: none; }
+  .leadflow-site-nav__cta { width: 39px; padding: 0; }
+}
+
+/* WordPress themes often place page content in a narrow column. Use the
+   component width, rather than the viewport width, for the responsive switch. */
+@container leadflow-form (max-width: 840px) {
+  .leadflow-form-intro,
+  .leadflow-form-card { grid-column: 1 / -1; }
+  .leadflow-form-intro { align-self: start; }
+  .leadflow-form-intro h2,
+  .leadflow-form-intro p { max-width: none; }
+  .leadflow-form-card { width: 100%; max-width: 680px; margin-inline: auto; }
+}
+
+@container leadflow-form (max-width: 560px) {
+  .leadflow-field-grid { grid-template-columns: 1fr; gap: 16px; }
+  .leadflow-field--full { grid-column: auto; }
+  .leadflow-form-card { padding: 20px; }
+}
 
 @media (max-width: 760px) { .leadflow-form-shell { grid-template-columns: 1fr; gap: 31px; margin: 20px 0; padding: 28px 20px; border-radius: 16px; }.leadflow-form-intro h2 { max-width: 350px; font-size: 34px; }.leadflow-form-intro p { margin-top: 15px; font-size: 14px; }.leadflow-trust-row { margin-top: 20px; }.leadflow-form-intro::after { display: none; }.leadflow-form-card { padding: 20px; }.leadflow-field-grid { grid-template-columns: 1fr; gap: 16px; }.leadflow-field--full { grid-column: auto; } }
 @media (max-width: 440px) { .leadflow-form-shell { padding: 23px 15px; }.leadflow-form-card { padding: 18px 15px; }.leadflow-form-footer { align-items: stretch; flex-direction: column; gap: 14px; }.leadflow-form-footer p { max-width: none; }.leadflow-submit-button { width: 100%; min-height: 48px; }.leadflow-field-footer { gap: 8px; } }

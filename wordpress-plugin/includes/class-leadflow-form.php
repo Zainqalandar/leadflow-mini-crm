@@ -20,6 +20,8 @@ final class LeadFlow_Form {
         add_shortcode('leadflow_form', array($this, 'render_shortcode'));
         add_action('wp_enqueue_scripts', array($this, 'register_assets'), 1);
         add_action('wp_enqueue_scripts', array($this, 'enqueue_shortcode_assets'), 20);
+        add_action('wp_body_open', array($this, 'render_navigation'));
+        add_filter('body_class', array($this, 'add_body_class'));
         add_action('admin_post_nopriv_leadflow_submit_lead', array($this, 'handle_submission'));
         add_action('admin_post_leadflow_submit_lead', array($this, 'handle_submission'));
     }
@@ -42,12 +44,92 @@ final class LeadFlow_Form {
     }
 
     public function enqueue_shortcode_assets(): void {
-        $post = get_post();
-        if (!$post instanceof WP_Post || !has_shortcode($post->post_content, 'leadflow_form')) {
+        if (!$this->is_shortcode_page()) {
             return;
         }
 
         $this->enqueue_assets();
+    }
+
+    /**
+     * Add a page-specific class so the theme header can be replaced safely.
+     *
+     * @param array<int, string> $classes Body classes.
+     * @return array<int, string>
+     */
+    public function add_body_class(array $classes): array {
+        if ($this->is_shortcode_page()) {
+            $classes[] = 'leadflow-has-form';
+        }
+
+        return $classes;
+    }
+
+    /**
+     * Render the public LeadFlow navigation before the block-theme wrapper.
+     */
+    public function render_navigation(): void {
+        if (!$this->is_shortcode_page()) {
+            return;
+        }
+
+        $home_url = home_url('/');
+        $login_url = wp_login_url((string) get_permalink());
+        ?>
+        <header class="leadflow-site-nav" data-leadflow-navigation>
+            <div class="leadflow-site-nav__inner">
+                <a class="leadflow-site-nav__brand" href="<?php echo esc_url($home_url); ?>" aria-label="<?php esc_attr_e('LeadFlow Mini CRM home', 'leadflow-connector'); ?>">
+                    <span class="leadflow-site-nav__mark" aria-hidden="true">
+                        <svg viewBox="0 0 40 40" role="img">
+                            <path d="M10 29V11h4v14h8v4H10Zm11 0V11h10v4h-6v3h5v4h-5v7h-4Z" />
+                        </svg>
+                    </span>
+                    <span class="leadflow-site-nav__brand-copy">
+                        <strong><?php esc_html_e('LeadFlow Mini CRM', 'leadflow-connector'); ?></strong>
+                        <small><?php esc_html_e('LEADS · PIPELINE · GROWTH', 'leadflow-connector'); ?></small>
+                    </span>
+                </a>
+
+                <nav class="leadflow-site-nav__links" id="leadflow-primary-navigation" aria-label="<?php esc_attr_e('Primary navigation', 'leadflow-connector'); ?>">
+                    <a class="is-active" href="<?php echo esc_url($home_url); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z" /></svg>
+                        <span><?php esc_html_e('Home', 'leadflow-connector'); ?></span>
+                    </a>
+                    <a href="#leadflow-form">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM9 8h6M9 12h6M9 16h4" /></svg>
+                        <span><?php esc_html_e('Leads', 'leadflow-connector'); ?></span>
+                    </a>
+                    <a href="#leadflow-form">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V8m6 11V4m6 15v-7m4 7H2" /></svg>
+                        <span><?php esc_html_e('Pipeline', 'leadflow-connector'); ?></span>
+                        <svg class="leadflow-site-nav__chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+                    </a>
+                    <a href="#leadflow-form">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m15 9-2 4-4 2 2-4 4-2Z" /></svg>
+                        <span><?php esc_html_e('Insights', 'leadflow-connector'); ?></span>
+                        <svg class="leadflow-site-nav__chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+                    </a>
+                </nav>
+
+                <div class="leadflow-site-nav__actions">
+                    <a class="leadflow-site-nav__cta" href="#leadflow-form">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10Z" /></svg>
+                        <span><?php esc_html_e('Get in Touch', 'leadflow-connector'); ?></span>
+                    </a>
+                    <a class="leadflow-site-nav__signin" href="<?php echo esc_url($login_url); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2v-3M10 12h11m-4-4 4 4-4 4" /></svg>
+                        <span><?php esc_html_e('Sign In', 'leadflow-connector'); ?></span>
+                    </a>
+                    <button class="leadflow-site-nav__icon-button" type="button" data-leadflow-theme-toggle aria-label="<?php esc_attr_e('Toggle navigation theme', 'leadflow-connector'); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+                    </button>
+                    <button class="leadflow-site-nav__menu-button" type="button" data-leadflow-menu-toggle aria-controls="leadflow-primary-navigation" aria-expanded="false" aria-label="<?php esc_attr_e('Open navigation menu', 'leadflow-connector'); ?>">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <?php
     }
 
     /**
@@ -199,6 +281,12 @@ final class LeadFlow_Form {
     private function enqueue_assets(): void {
         wp_enqueue_style('leadflow-connector-form');
         wp_enqueue_script('leadflow-connector-form');
+    }
+
+    private function is_shortcode_page(): bool {
+        $post = get_post();
+
+        return $post instanceof WP_Post && has_shortcode($post->post_content, 'leadflow_form');
     }
 
     private function post_string(string $key): string {

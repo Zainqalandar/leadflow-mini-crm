@@ -1,4 +1,34 @@
 (() => {
+  const navigation = document.querySelector('[data-leadflow-navigation]');
+  const menuToggle = navigation?.querySelector('[data-leadflow-menu-toggle]');
+  const themeToggle = navigation?.querySelector('[data-leadflow-theme-toggle]');
+
+  menuToggle?.addEventListener('click', () => {
+    const isOpen = navigation.classList.toggle('is-open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+  });
+
+  navigation?.querySelectorAll('.leadflow-site-nav__links a').forEach((link) => {
+    link.addEventListener('click', () => {
+      navigation.classList.remove('is-open');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  themeToggle?.addEventListener('click', () => {
+    const isLight = navigation.classList.toggle('is-light');
+    themeToggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && navigation?.classList.contains('is-open')) {
+      navigation.classList.remove('is-open');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+      menuToggle?.focus();
+    }
+  });
+
   const forms = document.querySelectorAll('.leadflow-form');
 
   const validateField = (field) => {
